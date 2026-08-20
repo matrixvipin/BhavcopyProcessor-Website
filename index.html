@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bhavcopy Processor — NSE Bhavcopy Downloader & Processor</title>
+
+    <meta
+        name="description"
+        content="Bhavcopy Processor is a Windows desktop application for downloading and processing NSE Bhavcopy data."
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+            color: #172033;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        /* Header */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            border-bottom: 1px solid #e8ebf0;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #152033;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f97316;
+            color: white;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav a {
+            font-size: 14px;
+            font-weight: 600;
+            color: #566174;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #f97316;
+        }
+
+        /* Hero */
+
+        .hero {
+            background:
+                radial-gradient(circle at 80% 20%, rgba(249, 115, 22, 0.10), transparent 32%),
+                linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            padding: 105px 0 100px;
+        }
+
+        .hero-content {
+            max-width: 780px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            border-radius: 999px;
+            background: #fff3e8;
+            color: #c2410c;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #f97316;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 6vw, 68px);
+            line-height: 1.08;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            color: #101827;
+        }
+
+        .hero h1 span {
+            color: #f97316;
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: #5d6879;
+            font-size: 19px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 34px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            padding: 0 24px;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: 700;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            background: #f97316;
+            color: white;
+            box-shadow: 0 8px 20px rgba(249, 115, 22, 0.22);
+        }
+
+        .button-primary:hover {
+            background: #ea580c;
+        }
+
+        .button-secondary {
+            background: white;
+            color: #263246;
+            border: 1px solid #dce1e8;
+        }
+
+        .button-secondary:hover {
+            border-color: #f97316;
+            color: #ea580c;
+        }
+
+        /* Sections */
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        .section-heading .eyebrow {
+            color: #f97316;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            font-size: 36px;
+            line-height: 1.2;
+            letter-spacing: -0.8px;
+            color: #111827;
+            margin-bottom: 14px;
+        }
+
+        .section-heading p {
+            color: #687386;
+            font-size: 16px;
+        }
+
+        /* Features */
+
+        .features {
+            background: #ffffff;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 28px;
+            border: 1px solid #e6eaf0;
+            border-radius: 14px;
+            background: #ffffff;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 35px rgba(15, 23, 42, 0.08);
+        }
+
+        .feature-icon {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #fff3e8;
+            color: #f97316;
+            font-size: 21px;
+            margin-bottom: 18px;
+        }
+
+        .feature-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #172033;
+        }
+
+        .feature-card p {
+            color: #697487;
+            font-size: 14px;
+        }
+
+        /* Download */
+
+        .download {
+            background: #f8fafc;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .download-card {
+            background: white;
+            border: 1px solid #e1e6ed;
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .download-card h3 {
+            font-size: 21px;
+            margin-bottom: 6px;
+        }
+
+        .download-card .architecture {
+            color: #f97316;
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .download-card p {
+            color: #687386;
+            font-size: 14px;
+            margin: 16px 0 22px;
+        }
+
+        .download-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            border-top: 1px solid #edf0f4;
+            padding-top: 16px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #697487;
+        }
+
+        .download-info strong {
+            color: #263246;
+        }
+
+        .download-card .button {
+            width: 100%;
+        }
+
+        .version-note {
+            text-align: center;
+            margin-top: 24px;
+            color: #7a8493;
+            font-size: 13px;
+        }
+
+        /* How it works */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+        }
+
+        .step-number {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #fff3e8;
+            color: #f97316;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .step h3 {
+            margin-bottom: 7px;
+            font-size: 18px;
+        }
+
+        .step p {
+            color: #697487;
+            font-size: 14px;
+        }
+
+        /* Requirements */
+
+        .requirements {
+            background: #101827;
+            color: white;
+        }
+
+        .requirements .section-heading h2 {
+            color: white;
+        }
+
+        .requirements .section-heading p {
+            color: #aeb8c7;
+        }
+
+        .requirements-box {
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid #263246;
+            border-radius: 14px;
+            padding: 28px 32px;
+            background: #172033;
+        }
+
+        .requirements-box ul {
+            list-style: none;
+            display: grid;
+            gap: 13px;
+        }
+
+        .requirements-box li {
+            color: #d3d9e2;
+            font-size: 14px;
+            padding-left: 22px;
+            position: relative;
+        }
+
+        .requirements-box li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #fb923c;
+            font-weight: 800;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #0b111d;
+            color: #8d98a8;
+            padding: 28px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            color: white;
+            font-weight: 700;
+        }
+
+        .footer-copy {
+            font-size: 13px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 800px) {
+            nav {
+                display: none;
+            }
+
+            .feature-grid,
+            .download-grid,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 80px 0 75px;
+            }
+
+            section {
+                padding: 70px 0;
+            }
+
+            .hero h1 {
+                letter-spacing: -1px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                width: min(100% - 28px, 1120px);
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+
+            .section-heading h2 {
+                font-size: 30px;
+            }
+
+            .download-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container nav">
+
+            <a href="#" class="brand">
+                <div class="brand-mark">B</div>
+                <span>Bhavcopy Processor</span>
+            </a>
+
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#download">Download</a>
+                <a href="#how-it-works">How It Works</a>
+            </nav>
+
+        </div>
+    </header>
+
+
+    <!-- Hero -->
+    <main>
+
+        <section class="hero">
+
+            <div class="container hero-content">
+
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    Freeware for Windows
+                </div>
+
+                <h1>
+                    Process NSE Bhavcopy Data
+                    <span>Simply.</span>
+                </h1>
+
+                <p>
+                    Bhavcopy Processor is a Windows desktop application
+                    designed to download and process NSE Bhavcopy data
+                    quickly and conveniently.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="#download" class="button button-primary">
+                        Download Freeware
+                    </a>
+
+                    <a href="#features" class="button button-secondary">
+                        Explore Features
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Features -->
+        <section class="features" id="features">
+
+            <div class="container">
+
+                <div class="section-heading">
+                    <div class="eyebrow">Features</div>
+
+                    <h2>
+                        Everything you need to work with Bhavcopy data
+                    </h2>
+
+                    <p>
+                        Built as a simple Windows desktop application
+                        focused on downloading and processing NSE data.
+                    </p>
+                </div>
+
+
+                <div class="feature-grid">
+
+                    <div class="feature-card">
+                        <div class="feature-icon">↓</div>
+                        <h3>NSE Bhavcopy Download</h3>
+                        <p>
+                            Download NSE Bhavcopy files directly through
+                            the application.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <div class="feature-icon">◆</div>
+                        <h3>Equity Data</h3>
+                        <p>
+                            Download and process NSE Equity Bhavcopy data
+                            for selected dates.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <div class="feature-icon">◆</div>
+                        <h3>Futures Data</h3>
+                        <p>
+                            Work with NSE Futures data using the same
+                            convenient desktop application.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <div class="feature-icon">▣</div>
+                        <h3>Date Range Processing</h3>
+                        <p>
+                            Select the required date range and process
+                            the available Bhavcopy files.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <div class="feature-icon">⟳</div>
+                        <h3>Automatic Daily Download</h3>
+                        <p>
+                            Schedule automatic daily downloads through
+                            Windows Task Scheduler.
+                        </p>
+                    </div>
+
+
+                    <div class="feature-card">
+                        <div class="feature-icon">✓</div>
+                        <h3>Windows Desktop App</h3>
+                        <p>
+                            A dedicated Windows application without the
+                            need to run commands or scripts manually.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Download -->
+        <section class="download" id="download">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">Download</div>
+
+                    <h2>
+                        Download Bhavcopy Processor
+                    </h2>
+
+                    <p>
+                        Choose the installer that matches your Windows
+                        system architecture.
+                    </p>
+
+                </div>
+
+
+                <div class="download-grid">
+
+                    <!-- x64 -->
+                    <div class="download-card">
+
+                        <div class="architecture">
+                            64-bit Windows
+                        </div>
+
+                        <h3>Windows x64</h3>
+
+                        <p>
+                            Recommended for modern 64-bit Windows systems.
+                        </p>
+
+                        <div class="download-info">
+                            <span>Version</span>
+                            <strong>1.0.0</strong>
+                        </div>
+
+                        <a
+                            href="https://github.com/matrixvipin/BhavcopyProcessor-Website/releases/latest/download/Bhavcopy%20Processor%20Freeware%20Setup%201.0.0%20x64.exe"
+                            class="button button-primary"
+                        >
+                            Download x64
+                        </a>
+
+                    </div>
+
+
+                    <!-- x86 -->
+                    <div class="download-card">
+
+                        <div class="architecture">
+                            32-bit Windows
+                        </div>
+
+                        <h3>Windows x86</h3>
+
+                        <p>
+                            For 32-bit Windows systems that require the
+                            ia32 installer.
+                        </p>
+
+                        <div class="download-info">
+                            <span>Version</span>
+                            <strong>1.0.0</strong>
+                        </div>
+
+                        <a
+                            href="https://github.com/matrixvipin/BhavcopyProcessor-Website/releases/latest/download/Bhavcopy%20Processor%20Freeware%20Setup%201.0.0%20x86.exe"
+                            class="button button-primary"
+                        >
+                            Download x86
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <p class="version-note">
+                    Freeware version 1.0.0 · Windows
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- How It Works -->
+        <section id="how-it-works">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">How It Works</div>
+
+                    <h2>
+                        Get started in three simple steps
+                    </h2>
+
+                    <p>
+                        No source code, scripts, or development tools
+                        are required.
+                    </p>
+
+                </div>
+
+
+                <div class="steps">
+
+                    <div class="step">
+
+                        <div class="step-number">1</div>
+
+                        <h3>Download</h3>
+
+                        <p>
+                            Choose the Windows installer that matches
+                            your system.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">2</div>
+
+                        <h3>Install</h3>
+
+                        <p>
+                            Run the installer and follow the normal
+                            Windows installation process.
+                        </p>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">3</div>
+
+                        <h3>Process</h3>
+
+                        <p>
+                            Launch Bhavcopy Processor and download or
+                            process the required NSE data.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Requirements -->
+        <section class="requirements">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">System Requirements</div>
+
+                    <h2>
+                        Before you install
+                    </h2>
+
+                    <p>
+                        The application is distributed as a Windows
+                        desktop installer.
+                    </p>
+
+                </div>
+
+
+                <div class="requirements-box">
+
+                    <ul>
+                        <li>
+                            Windows operating system
+                        </li>
+
+                        <li>
+                            Use the x64 installer for 64-bit Windows
+                        </li>
+
+                        <li>
+                            Use the x86 installer for 32-bit Windows
+                        </li>
+
+                        <li>
+                            Internet connection required for downloading
+                            NSE Bhavcopy files
+                        </li>
+
+                        <li>
+                            No Node.js or programming environment is
+                            required for normal use
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+
+        <div class="container footer-inner">
+
+            <div class="footer-brand">
+                Bhavcopy Processor
+            </div>
+
+            <div class="footer-copy">
+                © 2026 Bhavcopy Processor. All rights reserved.
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
