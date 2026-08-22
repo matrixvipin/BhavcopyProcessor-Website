@@ -4,11 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhavcopy Processor — NSE Bhavcopy Downloader & Processor</title>
-    <meta
-        name="description"
-        content="Bhavcopy Processor is a Windows desktop application for downloading and processing NSE Bhavcopy data."
-    >
+    <title>Bhavcopy Processor — NSE Bhavcopy Downloader & Processor for Windows</title>
+    <meta name="description" content="Bhavcopy Processor is a free Windows desktop application to download and process official NSE Bhavcopy data — Equity, Index and Futures. No scripts or tools required.">
+    <meta name="keywords" content="NSE, Bhavcopy, stock market, trading, freeware, Windows, equity data, futures data, EOD data">
     <style>
         * {
             box-sizing: border-box;
@@ -22,32 +20,51 @@
         }
 
         body {
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Arial,
-                sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
             color: #172033;
-            background:
-                radial-gradient(circle at 85% 12%, rgba(249, 115, 22, 0.10), transparent 42%),
-                linear-gradient(160deg, #f8fafc 0%, #eef2f7 100%);
+            background: linear-gradient(160deg, #f8fafc 0%, #eef2f7 100%);
             overflow: hidden;
         }
 
-        .page {
-            height: 100vh;
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: clamp(20px, 4vh, 48px) clamp(24px, 5vw, 64px);
-            display: grid;
-            grid-template-columns: 1.12fr 0.88fr;
-            gap: clamp(28px, 5vw, 72px);
-            align-items: center;
+        /* ---------- Animated background orbs ---------- */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: .5;
+            z-index: 0;
+            pointer-events: none;
+            animation: orbFloat 14s ease-in-out infinite alternate;
+        }
+        .orb-1 { width: 420px; height: 420px; top: -140px; right: -80px; background: radial-gradient(circle, rgba(249,115,22,.35), transparent 65%); }
+        .orb-2 { width: 380px; height: 380px; bottom: -140px; left: -100px; background: radial-gradient(circle, rgba(59,130,246,.28), transparent 65%); animation-delay: -7s; }
+        .orb-3 { width: 260px; height: 260px; top: 40%; left: 42%; background: radial-gradient(circle, rgba(16,185,129,.18), transparent 65%); animation-delay: -3s; }
+
+        @keyframes orbFloat {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(-30px, 24px) scale(1.08); }
         }
 
-        /* ---------- Left column ---------- */
+        /* ---------- Layout ---------- */
+        .page {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: clamp(14px, 2.6vh, 30px) clamp(22px, 4vw, 56px);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1.8vh, 20px);
+        }
+
+        /* ---------- Header ---------- */
+        header.topbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: fadeDown .7s ease both;
+        }
 
         .brand {
             display: flex;
@@ -56,74 +73,108 @@
             font-size: 17px;
             font-weight: 700;
             color: #152033;
-            margin-bottom: clamp(16px, 3.5vh, 34px);
         }
 
         .brand-mark {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #f97316;
+            background: linear-gradient(145deg, #fb923c, #ea580c);
             color: #fff;
             font-size: 19px;
             font-weight: 800;
-            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.35);
+            box-shadow: 0 8px 20px rgba(249, 115, 22, .4), inset 0 1px 0 rgba(255,255,255,.45);
         }
 
         .badge {
-            margin-left: 6px;
-            padding: 4px 11px;
+            padding: 4px 12px;
             border-radius: 999px;
             background: #fff3e8;
             color: #c2410c;
             font-size: 12px;
             font-weight: 700;
+            box-shadow: inset 0 0 0 1px rgba(194,65,12,.15);
         }
 
+        .topbar .spacer { flex: 1; }
+
+        .gh-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #172033;
+            font-size: 13px;
+            font-weight: 700;
+            background: rgba(255,255,255,.75);
+            border: 1px solid #e2e8f0;
+            transition: all .25s ease;
+        }
+        .gh-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(15,23,42,.12);
+            border-color: #cbd5e1;
+        }
+        .gh-link svg { width: 17px; height: 17px; fill: #172033; }
+
+        /* ---------- Hero ---------- */
+        main.hero {
+            flex: 1;
+            min-height: 0;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: clamp(24px, 4vw, 60px);
+            align-items: center;
+        }
+
+        .hero-left > * { animation: fadeUp .8s ease both; }
+        .hero-left > *:nth-child(1) { animation-delay: .08s; }
+        .hero-left > *:nth-child(2) { animation-delay: .18s; }
+        .hero-left > *:nth-child(3) { animation-delay: .28s; }
+        .hero-left > *:nth-child(4) { animation-delay: .38s; }
+        .hero-left > *:nth-child(5) { animation-delay: .48s; }
+        .hero-left > *:nth-child(6) { animation-delay: .58s; }
+
         h1 {
-            font-size: clamp(30px, 4.6vw, 54px);
+            font-size: clamp(30px, 4.3vw, 52px);
             line-height: 1.06;
             letter-spacing: -1.6px;
             color: #101827;
-            margin-bottom: clamp(12px, 2.4vh, 22px);
+            margin-bottom: clamp(10px, 1.8vh, 18px);
         }
-
-        h1 span {
-            color: #f97316;
-        }
+        h1 span { color: #f97316; }
 
         .lead {
-            max-width: 480px;
+            max-width: 500px;
             color: #5d6879;
-            font-size: clamp(14px, 1.35vw, 17px);
+            font-size: clamp(14px, 1.3vw, 16.5px);
             line-height: 1.55;
-            margin-bottom: clamp(16px, 3vh, 28px);
+            margin-bottom: clamp(12px, 2vh, 20px);
         }
 
         .features {
             list-style: none;
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 9px 18px;
-            max-width: 480px;
-            margin-bottom: clamp(18px, 4vh, 40px);
+            gap: 8px 18px;
+            max-width: 500px;
+            margin-bottom: clamp(14px, 2.4vh, 24px);
         }
-
         .features li {
             display: flex;
             align-items: center;
             gap: 8px;
             color: #374151;
-            font-size: clamp(13px, 1.15vw, 15px);
+            font-size: clamp(13px, 1.1vw, 14.5px);
             font-weight: 600;
         }
-
         .tick {
-            width: 18px;
-            height: 18px;
+            width: 19px; height: 19px;
             flex-shrink: 0;
             border-radius: 50%;
             background: #dcfce7;
@@ -133,217 +184,487 @@
             align-items: center;
             justify-content: center;
             font-weight: 800;
+            box-shadow: 0 2px 6px rgba(21,128,61,.18);
         }
 
-        .foot {
+        /* ---------- Glossy buttons ---------- */
+        .cta-row {
             display: flex;
             align-items: center;
-            gap: 18px;
-            padding-top: clamp(12px, 2.4vh, 20px);
-            border-top: 1px solid rgba(23, 32, 51, 0.10);
-            color: #7a8493;
-            font-size: 13px;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: clamp(12px, 2vh, 20px);
         }
 
-        .foot a {
-            color: #ea580c;
-            font-weight: 600;
+        .btn-glossy {
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-width: 190px;
+            padding: 13px 26px;
+            border-radius: 13px;
             text-decoration: none;
+            font-weight: 800;
+            font-size: 14.5px;
+            letter-spacing: .2px;
+            color: #fff;
+            background: linear-gradient(180deg, #fb923c 0%, #f97316 48%, #ea580c 100%);
+            box-shadow:
+                0 10px 24px rgba(249, 115, 22, .38),
+                inset 0 1px 0 rgba(255,255,255,.55),
+                inset 0 -2px 4px rgba(154,52,18,.35);
+            transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+        }
+        .btn-glossy::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -75%;
+            width: 50%; height: 100%;
+            background: linear-gradient(105deg, transparent, rgba(255,255,255,.65), transparent);
+            transform: skewX(-22deg);
+            transition: left .55s ease;
+        }
+        .btn-glossy:hover {
+            transform: translateY(-3px) scale(1.02);
+            filter: brightness(1.06);
+            box-shadow:
+                0 16px 34px rgba(249, 115, 22, .48),
+                0 0 24px rgba(255, 170, 90, .35),
+                inset 0 1px 0 rgba(255,255,255,.6);
+        }
+        .btn-glossy:hover::before { left: 130%; }
+        .btn-glossy:active { transform: translateY(0) scale(.99); }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 24px;
+            border-radius: 13px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            color: #334155;
+            background: rgba(255,255,255,.8);
+            border: 1px solid #dbe2ec;
+            backdrop-filter: blur(6px);
+            transition: all .25s ease;
+        }
+        .btn-ghost:hover {
+            transform: translateY(-3px);
+            border-color: #f97316;
+            color: #c2410c;
+            box-shadow: 0 12px 26px rgba(15,23,42,.12);
         }
 
-        .foot a:hover {
-            text-decoration: underline;
+        /* ---------- Stats strip ---------- */
+        .stats {
+            display: flex;
+            gap: clamp(14px, 2.4vw, 30px);
+            padding-top: clamp(10px, 1.6vh, 16px);
+            border-top: 1px solid rgba(23,32,51,.09);
         }
-
-        /* ---------- Right column ---------- */
-
-        .panel {
-            background: rgba(255, 255, 255, 0.86);
-            border: 1px solid #e4e9f0;
-            border-radius: 22px;
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
-            padding: clamp(20px, 3.4vh, 34px) clamp(20px, 2.4vw, 32px);
-            backdrop-filter: blur(8px);
-        }
-
-        .panel h2 {
-            font-size: clamp(17px, 1.6vw, 21px);
+        .stat b {
+            display: block;
+            font-size: clamp(16px, 1.6vw, 21px);
             color: #101827;
-            margin-bottom: 4px;
+            letter-spacing: -.4px;
+        }
+        .stat span {
+            font-size: 11.5px;
+            color: #7a8493;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .6px;
         }
 
-        .panel .sub {
-            color: #687386;
-            font-size: 13px;
-            margin-bottom: clamp(14px, 2.6vh, 24px);
+        /* ---------- Right: app demo + downloads ---------- */
+        .hero-right {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 1.6vh, 16px);
+            min-height: 0;
         }
 
+        /* App window mockup (animated demo) */
+        .app-demo {
+            background: linear-gradient(165deg, #ffffff, #f4f7fb);
+            border: 1px solid #e4e9f0;
+            border-radius: 18px;
+            box-shadow: 0 26px 60px rgba(15,23,42,.13), inset 0 1px 0 #fff;
+            overflow: hidden;
+            animation: fadeUp .9s .25s ease both;
+        }
+        .demo-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: linear-gradient(180deg, #fffdfb, #f6f1ec);
+            border-bottom: 1px solid #ece5dd;
+        }
+        .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+        .demo-title {
+            margin-left: 6px;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #64748b;
+        }
+        .demo-body { padding: 14px 16px 16px; }
+
+        .demo-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 7px 10px;
+            margin-bottom: 7px;
+            border: 1px solid #e6ebf3;
+            border-radius: 9px;
+            background: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+        }
+        .demo-row .pill {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 9px;
+            border-radius: 999px;
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .demo-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            margin: 10px 2px 5px;
+        }
+        .demo-progress-track {
+            height: 14px;
+            border-radius: 8px;
+            background: #eaf0f7;
+            border: 1px solid #dde5ef;
+            box-shadow: inset 0 1px 2px rgba(57,76,103,.12);
+            overflow: hidden;
+        }
+        .demo-progress-fill {
+            position: relative;
+            height: 100%;
+            width: 72%;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #dc5f00, #f59e0b, #ffd05b, #e46d00);
+            background-size: 200% 100%;
+            animation: progressShimmer 2s linear infinite;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.36);
+        }
+        .demo-progress-fill::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -35%;
+            width: 35%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+            transform: skewX(-20deg);
+            animation: glaze 1.4s linear infinite;
+        }
+        @keyframes progressShimmer { to { background-position: -200% 0; } }
+        @keyframes glaze { from { left: -35%; } to { left: 120%; } }
+
+        .demo-log {
+            margin-top: 10px;
+            padding: 9px 11px;
+            border-radius: 9px;
+            background: #101827;
+            color: #86efac;
+            font-family: Consolas, monospace;
+            font-size: 10.5px;
+            line-height: 1.65;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .demo-log span { display: block; opacity: 0; animation: logIn .4s ease forwards; }
+        .demo-log span:nth-child(1) { animation-delay: 1.1s; }
+        .demo-log span:nth-child(2) { animation-delay: 1.7s; }
+        .demo-log span:nth-child(3) { animation-delay: 2.3s; }
+        @keyframes logIn { to { opacity: 1; } }
+
+        /* Download cards */
+        .dl-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            animation: fadeUp .9s .4s ease both;
+        }
         .dl-card {
             display: block;
             text-decoration: none;
             border: 1px solid #e1e6ed;
-            border-radius: 14px;
-            background: #ffffff;
-            padding: 14px 18px;
-            margin-bottom: 12px;
-            transition:
-                transform 0.18s ease,
-                box-shadow 0.18s ease,
-                border-color 0.18s ease;
+            border-radius: 15px;
+            background: rgba(255,255,255,.92);
+            padding: 13px 16px;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
         }
-
         .dl-card:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             border-color: #f97316;
-            box-shadow: 0 12px 26px rgba(249, 115, 22, 0.16);
+            box-shadow: 0 14px 30px rgba(249,115,22,.18);
         }
-
-        .dl-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .dl-name {
-            font-weight: 700;
-            color: #172033;
-            font-size: 15px;
-        }
-
+        .dl-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .dl-name { font-weight: 800; color: #172033; font-size: 14px; }
         .arch {
             padding: 3px 10px;
             border-radius: 999px;
             background: #fff3e8;
             color: #c2410c;
-            font-size: 11px;
+            font-size: 10.5px;
             font-weight: 800;
-            letter-spacing: 0.6px;
+            letter-spacing: .6px;
             text-transform: uppercase;
         }
-
-        .dl-desc {
-            color: #687386;
-            font-size: 12.5px;
-            margin: 5px 0 12px;
-        }
-
+        .dl-desc { color: #687386; font-size: 11.5px; margin: 4px 0 10px; }
         .dl-btn {
-            display: inline-flex;
+            position: relative;
+            overflow: hidden;
+            display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 40px;
+            min-height: 38px;
             width: 100%;
-            border-radius: 9px;
-            background: #f97316;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #fb923c, #f97316 48%, #ea580c);
             color: #fff;
-            font-weight: 700;
-            font-size: 14px;
-            box-shadow: 0 6px 16px rgba(249, 115, 22, 0.25);
+            font-weight: 800;
+            font-size: 13px;
+            box-shadow: 0 7px 18px rgba(249,115,22,.32), inset 0 1px 0 rgba(255,255,255,.5);
+            transition: all .22s ease;
         }
-
-        .dl-card:hover .dl-btn {
-            background: #ea580c;
+        .dl-btn::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -75%;
+            width: 50%; height: 100%;
+            background: linear-gradient(105deg, transparent, rgba(255,255,255,.6), transparent);
+            transform: skewX(-22deg);
+            transition: left .55s ease;
         }
+        .dl-card:hover .dl-btn { filter: brightness(1.07); box-shadow: 0 10px 24px rgba(249,115,22,.42), inset 0 1px 0 rgba(255,255,255,.55); }
+        .dl-card:hover .dl-btn::before { left: 130%; }
 
         .note {
-            margin-top: 10px;
             text-align: center;
             color: #7a8493;
-            font-size: 12px;
+            font-size: 11.5px;
+            animation: fadeUp .9s .5s ease both;
         }
 
-        /* ---------- Small screens / short viewports: allow scroll ---------- */
+        /* ---------- Feature strip ---------- */
+        .feature-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            animation: fadeUp .9s .55s ease both;
+        }
+        .fcard {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 12px 15px;
+            border-radius: 14px;
+            background: rgba(255,255,255,.82);
+            border: 1px solid #e4e9f0;
+            backdrop-filter: blur(6px);
+            transition: transform .22s ease, box-shadow .22s ease;
+        }
+        .fcard:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(15,23,42,.10); }
+        .ficon {
+            width: 36px; height: 36px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            background: linear-gradient(145deg, #fff7ed, #ffedd5);
+            box-shadow: inset 0 0 0 1px rgba(249,115,22,.22);
+        }
+        .ftext b { display: block; font-size: 13px; color: #172033; }
+        .ftext span { font-size: 11px; color: #7a8493; }
 
-        @media (max-width: 900px),
-        (max-height: 520px) {
-            body {
-                overflow-y: auto;
-            }
+        /* ---------- Footer ---------- */
+        footer.foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding-top: clamp(8px, 1.4vh, 14px);
+            border-top: 1px solid rgba(23,32,51,.09);
+            color: #7a8493;
+            font-size: 12.5px;
+            animation: fadeUp .9s .65s ease both;
+        }
+        footer.foot a { color: #ea580c; font-weight: 600; text-decoration: none; }
+        footer.foot a:hover { text-decoration: underline; }
 
-            .page {
-                height: auto;
-                min-height: 100svh;
-                grid-template-columns: 1fr;
-                gap: 30px;
-                padding-top: 34px;
-                padding-bottom: 34px;
-            }
+        /* ---------- Animations ---------- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(22px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
 
-            .lead,
-            .features {
-                max-width: none;
-            }
+        /* ---------- Responsive: allow scroll on small screens ---------- */
+        @media (max-width: 980px), (max-height: 600px) {
+            body { overflow-y: auto; }
+            .page { height: auto; min-height: 100svh; }
+            main.hero { grid-template-columns: 1fr; }
+            .feature-strip { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 560px) {
+            .feature-strip { grid-template-columns: 1fr; }
+            .dl-grid { grid-template-columns: 1fr; }
+            .stats { flex-wrap: wrap; }
         }
     </style>
 </head>
 
 <body>
-    <main class="page">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-        <!-- Left: brand + pitch -->
-        <section class="intro">
+    <div class="page">
+
+        <!-- Top bar -->
+        <header class="topbar">
             <div class="brand">
                 <div class="brand-mark">B</div>
                 <span>Bhavcopy Processor</span>
-                <span class="badge">v1.1.2 · Freeware</span>
             </div>
+            <span class="badge">v1.1.2 · Freeware</span>
+            <div class="spacer"></div>
+            <a class="gh-link" href="https://github.com/matrixvipin/BhavcopyProcessor" target="_blank" rel="noopener">
+                <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                View on GitHub
+            </a>
+        </header>
 
-            <h1>Process NSE Bhavcopy data <span>simply.</span></h1>
+        <!-- Hero -->
+        <main class="hero">
+            <section class="hero-left">
+                <h1>Process NSE Bhavcopy<br>data <span>simply.</span></h1>
 
-            <p class="lead">
-                A fast Windows desktop application to download and process official
-                NSE Bhavcopy files — no scripts or tools required.
-            </p>
+                <p class="lead">
+                    A fast, free Windows desktop application to download and process official
+                    NSE Bhavcopy files — Equity, Index & Futures. No scripts, no Python,
+                    no manual work required.
+                </p>
 
-            <ul class="features">
-                <li><span class="tick">✓</span> NSE Equity & Index data</li>
-                <li><span class="tick">✓</span> Futures (F&O) data</li>
-                <li><span class="tick">✓</span> Date-range processing</li>
-                <li><span class="tick">✓</span> Automatic daily downloads</li>
-            </ul>
+                <ul class="features">
+                    <li><span class="tick">✓</span> NSE Equity & Index data</li>
+                    <li><span class="tick">✓</span> Futures (F&O) data</li>
+                    <li><span class="tick">✓</span> Date-range processing</li>
+                    <li><span class="tick">✓</span> Automatic daily downloads</li>
+                    <li><span class="tick">✓</span> Smart date detection</li>
+                    <li><span class="tick">✓</span> Built-in update checker</li>
+                </ul>
 
-            <footer class="foot">
-                <span>© 2026 Vipin Harke · All rights reserved</span>
-                <a href="mailto:matrixvipin@zohomail.in">matrixvipin@zohomail.in</a>
-            </footer>
+                <div class="cta-row">
+                    <a class="btn-glossy" href="https://github.com/matrixvipin/BhavcopyProcessor/releases/download/v1.1.2/Bhavcopy-Processor-Freeware-Setup-1.1.2-x64.exe">
+                        ⬇&nbsp; Download for Windows
+                    </a>
+                    <a class="btn-ghost" href="https://github.com/matrixvipin/BhavcopyProcessor/releases" target="_blank" rel="noopener">
+                        All releases →
+                    </a>
+                </div>
+
+                <div class="stats">
+                    <div class="stat"><b>v1.1.2</b><span>Latest version</span></div>
+                    <div class="stat"><b>x64 / x86</b><span>Both supported</span></div>
+                    <div class="stat"><b>Win 10/11</b><span>Compatible</span></div>
+                    <div class="stat"><b>Free</b><span>No cost ever</span></div>
+                </div>
+            </section>
+
+            <section class="hero-right">
+                <!-- Animated app demo -->
+                <div class="app-demo" aria-hidden="true">
+                    <div class="demo-titlebar">
+                        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+                        <span class="demo-title">Bhavcopy Processor — Downloading…</span>
+                    </div>
+                    <div class="demo-body">
+                        <div class="demo-row"><span>NSE Equity (EQ)</span><span class="pill">Ready</span></div>
+                        <div class="demo-row"><span>NSE Futures (FO)</span><span class="pill">Ready</span></div>
+                        <div class="demo-progress-label"><span>Downloading 2026-08-21 …</span><span>72%</span></div>
+                        <div class="demo-progress-track"><div class="demo-progress-fill"></div></div>
+                        <div class="demo-log">
+                            <span>[16:14:37] Scheduler Started</span>
+                            <span>[16:14:58] EQ Latest : 2026-08-21</span>
+                            <span>[16:15:26] Completed using Previous Trading Day ✓</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Downloads -->
+                <div class="dl-grid">
+                    <a class="dl-card" href="https://github.com/matrixvipin/BhavcopyProcessor/releases/download/v1.1.2/Bhavcopy-Processor-Freeware-Setup-1.1.2-x64.exe">
+                        <div class="dl-top">
+                            <span class="dl-name">Windows x64</span>
+                            <span class="arch">64-bit</span>
+                        </div>
+                        <p class="dl-desc">Recommended for modern systems.</p>
+                        <span class="dl-btn">Download x64</span>
+                    </a>
+                    <a class="dl-card" href="https://github.com/matrixvipin/BhavcopyProcessor/releases/download/v1.1.2/Bhavcopy-Processor-Freeware-Setup-1.1.2-ia32.exe">
+                        <div class="dl-top">
+                            <span class="dl-name">Windows x86</span>
+                            <span class="arch">32-bit</span>
+                        </div>
+                        <p class="dl-desc">For older ia32 systems.</p>
+                        <span class="dl-btn">Download x86</span>
+                    </a>
+                </div>
+                <p class="note">Free · Windows 10 / 11 · No dependencies required · Auto-updates built in</p>
+            </section>
+        </main>
+
+        <!-- Feature strip -->
+        <section class="feature-strip">
+            <div class="fcard">
+                <div class="ficon">⚡</div>
+                <div class="ftext"><b>Fast Processing</b><span>Parallel EQ/FO scans</span></div>
+            </div>
+            <div class="fcard">
+                <div class="ficon">📅</div>
+                <div class="ftext"><b>Date Range</b><span>Bulk historical download</span></div>
+            </div>
+            <div class="fcard">
+                <div class="ficon">⏰</div>
+                <div class="ftext"><b>Scheduler</b><span>Daily auto-download</span></div>
+            </div>
+            <div class="fcard">
+                <div class="ficon">🔒</div>
+                <div class="ftext"><b>Local & Private</b><span>Data stays on your PC</span></div>
+            </div>
         </section>
 
-        <!-- Right: downloads -->
-        <section class="panel">
-            <h2>Download for Windows</h2>
-            <p class="sub">Pick the installer that matches your system architecture.</p>
+        <!-- Footer -->
+        <footer class="foot">
+            <span>© 2026 Vipin Harke · All rights reserved</span>
+            <a href="mailto:matrixvipin@zohomail.in">matrixvipin@zohomail.in</a>
+        </footer>
 
-            <a
-                class="dl-card"
-                href="https://github.com/matrixvipin/BhavcopyProcessor/releases/download/v1.1.2/Bhavcopy-Processor-Freeware-Setup-1.1.2-x64.exe"
-            >
-                <div class="dl-top">
-                    <span class="dl-name">Windows x64</span>
-                    <span class="arch">64-bit</span>
-                </div>
-                <p class="dl-desc">Recommended for modern 64-bit Windows systems.</p>
-                <span class="dl-btn">Download x64</span>
-            </a>
-
-            <a
-                class="dl-card"
-                href="https://github.com/matrixvipin/BhavcopyProcessor/releases/download/v1.1.2/Bhavcopy-Processor-Freeware-Setup-1.1.2-ia32.exe"
-            >
-                <div class="dl-top">
-                    <span class="dl-name">Windows x86</span>
-                    <span class="arch">32-bit</span>
-                </div>
-                <p class="dl-desc">For older systems that require the ia32 installer.</p>
-                <span class="dl-btn">Download x86</span>
-            </a>
-
-            <p class="note">
-                Free · Windows 10 / 11 · No dependencies required
-            </p>
-        </section>
-
-    </main>
+    </div>
 </body>
 
 </html>
