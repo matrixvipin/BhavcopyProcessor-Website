@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# GitHub Pages site
+Sitemap: https://matrixvipin.github.io/BhavcopyProcessor-Website/sitemap.xml
