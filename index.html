@@ -4,9 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bhavcopy Processor — NSE Bhavcopy Downloader & Processor for Windows</title>
-    <meta name="description" content="Bhavcopy Processor is a free Windows desktop application to download and process official NSE Bhavcopy data — Equity, Index and Futures. No scripts or tools required.">
-    <meta name="keywords" content="NSE, Bhavcopy, stock market, trading, freeware, Windows, equity data, futures data, EOD data">
+    <title>Bhavcopy Processor — Free NSE Bhavcopy Downloader & Processor for Windows</title>
+
+    <!-- Primary SEO -->
+    <meta name="description" content="Download Bhavcopy Processor, a free Windows app that automatically downloads and processes official NSE Bhavcopy data — Equity, Index & Futures. No scripts, no Python. Bulk date ranges, daily scheduler & auto-updates built in.">
+    <meta name="keywords" content="NSE bhavcopy, bhavcopy downloader, bhavcopy processor, NSE bhavcopy csv, bhavcopy free download, NSE equity data, NSE futures data, bhavcopy software, bhavcopy for windows, NSE EOD data, bhavcopy daily">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="author" content="Vipin Harke">
+    <link rel="canonical" href="https://matrixvipin.github.io/BhavcopyProcessor-Website/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Bhavcopy Processor">
+    <meta property="og:title" content="Bhavcopy Processor — Free NSE Bhavcopy Downloader & Processor for Windows">
+    <meta property="og:description" content="Automatically download and process official NSE Bhavcopy data (Equity, Index & Futures) with this free Windows app. No scripts, no Python. Includes daily scheduler, bulk date-range processing and auto-updates.">
+    <meta property="og:url" content="https://matrixvipin.github.io/BhavcopyProcessor-Website/">
+    <meta property="og:image" content="https://matrixvipin.github.io/BhavcopyProcessor-Website/og-image.svg">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bhavcopy Processor — Free NSE Bhavcopy Downloader & Processor for Windows">
+    <meta name="twitter:description" content="Automatically download and process official NSE Bhavcopy data (Equity, Index & Futures) with this free Windows app.">
+    <meta name="twitter:image" content="https://matrixvipin.github.io/BhavcopyProcessor-Website/og-image.svg">
+
+    <!-- Theme / Favicon -->
+    <meta name="theme-color" content="#ea580c">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20rx='22'%20fill='%23ea580c'/%3E%3Ctext%20x='50'%20y='70'%20font-size='58'%20font-family='Arial'%20font-weight='bold'%20text-anchor='middle'%20fill='white'%3EB%3C/text%3E%3C/svg%3E">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Bhavcopy Processor",
+          "operatingSystem": "Windows 10, Windows 11",
+          "applicationCategory": "UtilitiesApplication",
+          "applicationSubCategory": "Finance / Market Data",
+          "description": "Free Windows desktop application to download and process official NSE Bhavcopy data — Equity, Index and Futures. Includes automatic daily scheduler, bulk date-range processing and auto-updates.",
+          "url": "https://matrixvipin.github.io/BhavcopyProcessor-Website/",
+          "downloadUrl": "https://github.com/matrixvipin/BhavcopyProcessor-Website/releases/latest",
+          "softwareVersion": "1.1.2",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+          "author": { "@type": "Person", "name": "Vipin Harke", "email": "matrixvipin@zohomail.in" }
+        },
+        {
+          "@type": "WebSite",
+          "name": "Bhavcopy Processor",
+          "url": "https://matrixvipin.github.io/BhavcopyProcessor-Website/"
+        }
+      ]
+    }
+    </script>
     <style>
         * {
             box-sizing: border-box;
@@ -534,6 +585,44 @@
             .dl-grid { grid-template-columns: 1fr; }
             .stats { flex-wrap: wrap; }
         }
+
+        /* ---------- SEO content section ---------- */
+        body { overflow-y: auto; }
+        .page { height: auto; min-height: 100svh; }
+
+        .seo-content {
+            margin-top: clamp(16px, 2.5vh, 28px);
+            padding: clamp(22px, 3.5vw, 44px);
+            border-radius: 20px;
+            background: rgba(255,255,255,.86);
+            border: 1px solid #e4e9f0;
+            box-shadow: 0 18px 44px rgba(15,23,42,.08);
+            backdrop-filter: blur(6px);
+        }
+        .seo-content .content-inner { max-width: 780px; margin: 0 auto; }
+        .seo-content h2 {
+            font-size: clamp(20px, 3vw, 28px);
+            color: #152033;
+            margin: 26px 0 12px;
+            line-height: 1.25;
+        }
+        .seo-content h2:first-child { margin-top: 0; }
+        .seo-content h3 {
+            font-size: 17px;
+            color: #c2410c;
+            margin: 22px 0 8px;
+        }
+        .seo-content p, .seo-content li {
+            font-size: 15px;
+            line-height: 1.65;
+            color: #3f4b5f;
+        }
+        .seo-content ul, .seo-content ol {
+            padding-left: 22px;
+            margin: 10px 0;
+        }
+        .seo-content li { margin: 7px 0; }
+        .seo-content a { color: #ea580c; font-weight: 600; }
     </style>
 </head>
 
@@ -655,6 +744,52 @@
             <div class="fcard">
                 <div class="ficon">🔒</div>
                 <div class="ftext"><b>Local & Private</b><span>Data stays on your PC</span></div>
+            </div>
+        </section>
+
+        <!-- SEO Content -->
+        <section class="seo-content">
+            <div class="content-inner">
+
+                <h2>What is Bhavcopy Processor?</h2>
+                <p>Bhavcopy Processor is a free Windows desktop application that downloads and processes the official National Stock Exchange (NSE) Bhavcopy files. It converts raw NSE bhavcopy CSV and ZIP data into clean, ready-to-use output for Equity (EQ), Index and Futures &amp; Options (F&amp;O) — automatically, with no Python, no scripts and no technical setup.</p>
+
+                <h2>Why use Bhavcopy Processor?</h2>
+                <ul>
+                    <li><strong>No scripts or coding</strong> — Process NSE bhavcopy data with a simple point-and-click interface.</li>
+                    <li><strong>NSE Equity, Index &amp; Futures</strong> — Full support for Equity Bhavcopy, Index closing files and Futures ZIP files.</li>
+                    <li><strong>Bulk historical date ranges</strong> — Download any trading date range in one click for research and backtesting.</li>
+                    <li><strong>Automatic daily scheduler</strong> — Built-in Windows Task Scheduler integration for hands-free end-of-day updates.</li>
+                    <li><strong>Smart date detection</strong> — Automatically finds the latest available trading day and skips already-processed dates.</li>
+                    <li><strong>Local &amp; private</strong> — All data stays on your PC; nothing is uploaded or shared.</li>
+                    <li><strong>Free &amp; lightweight</strong> — Standalone installer for Windows 10 / 11 with auto-updates built in.</li>
+                </ul>
+
+                <h2>How it works</h2>
+                <ol>
+                    <li>Select the date range — the app auto-detects the latest available trading day.</li>
+                    <li>Choose the data types — toggle NSE Equity and/or NSE Futures.</li>
+                    <li>Click Download &amp; Process — files are fetched from NSE and processed into clean CSVs.</li>
+                    <li>(Optional) Enable the Scheduler — automatic daily download at your preferred time.</li>
+                </ol>
+
+                <h2>Frequently asked questions</h2>
+
+                <h3>Is Bhavcopy Processor really free?</h3>
+                <p>Yes. Bhavcopy Processor is free to download and use, with no hidden costs, subscriptions or paid tiers.</p>
+
+                <h3>What is a Bhavcopy file?</h3>
+                <p>A Bhavcopy is the end-of-day (EOD) file published by NSE containing the day's trading summary — open, high, low, close, volume and more — for all traded securities.</p>
+
+                <h3>Do I need Python or other tools?</h3>
+                <p>No. Bhavcopy Processor is a standalone Windows application. Everything (download, unzip, parse and CSV export) is handled inside the app.</p>
+
+                <h3>Which versions of Windows are supported?</h3>
+                <p>Bhavcopy Processor supports Windows 10 and Windows 11, in both 64-bit (x64) and 32-bit (x86 / ia32) editions.</p>
+
+                <h3>Where can I download Bhavcopy Processor?</h3>
+                <p>You can download the latest installer from the <a href="https://github.com/matrixvipin/BhavcopyProcessor-Website/releases/latest" rel="noopener">official releases page</a>, or use the Download buttons above.</p>
+
             </div>
         </section>
 
